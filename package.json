@@ -1,8 +1,14 @@
 {
-  "name": "@craftzing/akeneo-api",
-  "version": "1.0.11",
-  "description": "A Node Rest Client for the Akeneo PIM",
-  "author": "Jens Verbeken <jens.verbeken@craftzing.com>",
+  "name": "@igusdev/akeneo-client",
+  "version": "0.0.1",
+  "description": "Unofficial Node.js REST API client for the Akeneo PIM",
+  "author": "igus GmbH",
+  "contributors": [
+    "Jens Verbeken <jens.verbeken@craftzing.com>",
+    "Kjell Knapen <knapenkjell@gmail.com>",
+    "Waldemar Heinze <mail@wheinze.dev>",
+    "Michał Mrozek <mail@michalmrozek.dev>"
+  ],
   "license": "MIT",
   "types": "dist/cjs/index.d.ts",
   "exports": {
