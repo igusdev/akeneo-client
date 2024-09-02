@@ -5,10 +5,10 @@ import raw from './raw';
 /**
  * @see https://api.akeneo.com/api-reference.html#get_products
  */
-export const get = (
+export const get = <P extends Product = Product>(
   http: AxiosInstance,
   { query }: { query?: ProductQueryParameters },
-): Promise<ListResponse<Product>> =>
+): Promise<ListResponse<P>> =>
   raw.get(http, `/api/rest/v1/products`, {
     params: query,
   });
@@ -16,7 +16,7 @@ export const get = (
 /**
  * @see https://api.akeneo.com/api-reference.html#get_products__code_
  */
-export const getOne = (
+export const getOne = <P extends Product = Product>(
   http: AxiosInstance,
   {
     code,
@@ -28,15 +28,15 @@ export const getOne = (
       with_quality_scores?: boolean;
     };
   },
-): Promise<Product> =>
+): Promise<P> =>
   raw.getOne(http, `/api/rest/v1/products/${code}`, {
     params: query,
   });
 
-export const getAll = (
+export const getAll = <P extends Product = Product>(
   http: AxiosInstance,
   { query = {} }: { query?: ProductQueryParameters },
-): Promise<ListResponse<Product>> => {
+): Promise<ListResponse<P>> => {
   // support legacy pagination_type "page"
   if (query?.pagination_type === 'page') {
     return raw.getAllByPage(http, `/api/rest/v1/products`, {

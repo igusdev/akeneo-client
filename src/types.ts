@@ -41,20 +41,6 @@ export type ProductModelQueryParameters = {
   with_count?: boolean;
 };
 
-export type ProductQueryParameters = {
-  search?: string;
-  scope?: string;
-  locales?: string;
-  attributes?: string;
-  pagination_type?: PaginationType;
-  page?: number;
-  search_after?: string;
-  limit?: number;
-  with_count?: boolean;
-  with_attribute_options?: boolean;
-  with_quality_scores?: boolean;
-};
-
 export type CategoryQueryParameters = {
   search?: string;
   page?: number;
@@ -119,6 +105,7 @@ type Association = {
   product_models: string[];
   groups: string[];
 };
+
 export type ProductModel = {
   code: string;
   family: string;
@@ -133,7 +120,7 @@ export type ProductModel = {
   metadata: Record<string, any>;
 };
 
-export type Product = {
+export type ProductType = {
   identifier: string;
   uuid?: string;
   enabled: boolean;
@@ -147,6 +134,22 @@ export type Product = {
   updated: string;
   quantified_associations: Record<string, Association>;
   metadata: Record<string, any>;
+};
+
+export type Product<T extends ProductType = ProductType> = {
+  identifier: string;
+  uuid?: string;
+  enabled: boolean;
+  created: string;
+  updated: string;
+  family: T['family'];
+  categories: T['categories'];
+  groups: T['groups'];
+  parent: T['parent'];
+  values: T['values'];
+  associations: T['associations'];
+  quantified_associations: T['quantified_associations'];
+  metadata: T['metadata'];
 };
 
 export type Family = {
@@ -250,3 +253,100 @@ export type Asset = {
   code: string;
   values: Record<string, ValuesRecord[]>;
 };
+
+export type ProductQueryParameters<P extends Product = Product> = {
+  search?: string;
+  scope?: string;
+  locales?: string;
+  attributes?: string;
+  pagination_type?: PaginationType;
+  page?: number;
+  search_after?: string;
+  limit?: number;
+  with_count?: boolean;
+  with_attribute_options?: boolean;
+  with_quality_scores?: boolean;
+};
+
+export type SearchQueryOperator =
+  | 'IN'
+  | 'NOT IN'
+  | 'IN OR UNCLASSIFIED'
+  | 'IN CHILDREN'
+  | 'NOT IN CHILDREN'
+  | 'UNCLASSIFIED';
+
+export type DefaultSearchParams =
+  | 'status'
+  | 'completeness'
+  | 'created'
+  | 'updated';
+
+export type ProductSearchparams<P extends Product = Product> =
+  DefaultSearchParams & keyof P['values'];
+
+export type SearchProperty = {
+  name: string;
+};
+
+export type DefaultSearchParam<T = any> = {
+  scope?: string;
+  locale?: string;
+  values: T;
+  name: string;
+};
+
+export type QualityScoreLevels = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+export type QualityScoreSearchParam = DefaultSearchParam<QualityScoreLevels> & {
+  name: 'quality_scores';
+};
+
+export type ProductSpecificSearchQuery<P extends string[]> = {
+  operation: SearchQueryOperator;
+  scope?: string;
+  locale?: string;
+  value: Array;
+};
+
+export type UndefinedPropertyQuery = {
+  property: undefined;
+  value: Array<undefined>;
+};
+
+export type DefaultProductSearchQuery<T extends DefaultSearchParam> = {
+  operation: SearchQueryOperator;
+  scope?: T['scope'];
+  locale?: T['locale'];
+  value: Array<T['values']>;
+};
+
+export type ProductSearchQueryList<P extends Product = Product> = Record<
+  keyof P['values'],
+  ProductSpecificSearchQuery<keyof P['values']>
+>;
+
+export type DefaultSearchQueryList<T extends DefaultSearchParam> = Record<
+  keyof T['values'],
+  DefaultProductSearchQuery<T>
+>;
+
+export type DefaultSearchQueryLists =
+  DefaultProductSearchQuery<QualityScoreSearchParam>;
+
+export type SearchQueryList<P extends Product = Product> =
+  | ProductSearchQueryList<P>
+  | DefaultSearchQueryLists;
+
+// Testing :)
+type AkeneoValues = 'name';
+type AkeneoData = 'data';
+
+type TestProduct = Product<
+  { values: Record<AkeneoValues, AkeneoData> } & Omit<Product, 'values'>
+>;
+
+type Q = Array<keyof TestProduct['values']>;
+
+const t: SearchQueryList<TestProduct>[] = [
+  { name: { operation: 'IN', value: [{}] } },
+];
