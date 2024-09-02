@@ -254,7 +254,7 @@ export type Asset = {
   values: Record<string, ValuesRecord[]>;
 };
 
-export type ProductQueryParameters<P extends Product = Product> = {
+export type ProductQueryParameters = {
   search?: string;
   scope?: string;
   locales?: string;
@@ -274,16 +274,18 @@ export type SearchQueryOperator =
   | 'IN OR UNCLASSIFIED'
   | 'IN CHILDREN'
   | 'NOT IN CHILDREN'
-  | 'UNCLASSIFIED';
-
-export type DefaultSearchParams =
-  | 'status'
-  | 'completeness'
-  | 'created'
-  | 'updated';
-
-export type ProductSearchparams<P extends Product = Product> =
-  DefaultSearchParams & keyof P['values'];
+  | 'UNCLASSIFIED'
+  | 'EMPTY'
+  | 'NOT EMPTY'
+  | '='
+  | '!='
+  | '<'
+  | '<='
+  | '>'
+  | '>='
+  | 'SINCE LAST N DAYS'
+  | 'BETWEEN'
+  | 'NOT_BETWEEN';
 
 export type SearchProperty = {
   name: string;
@@ -299,6 +301,61 @@ export type DefaultSearchParam<T = any> = {
 export type QualityScoreLevels = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
 export type QualityScoreSearchParam = DefaultSearchParam<QualityScoreLevels> & {
   name: 'quality_scores';
+  operation: Extract<SearchQueryOperator, 'IN' | 'NOT IN'>;
+};
+
+export type CategorySearchParam = DefaultSearchParam<string> & {
+  name: 'categories';
+  operation: Extract<
+    SearchQueryOperator,
+    | 'IN'
+    | 'NOT IN'
+    | 'IN OR UNCLASSIFIED'
+    | 'IN CHILDREN'
+    | 'NOT IN CHILDREN'
+    | 'UNCLASSIFIED'
+  >;
+};
+
+export type EnabledSearchParam = DefaultSearchParam<boolean> & {
+  name: 'enabled';
+  operation: Extract<SearchQueryOperator, '=' | '!='>;
+};
+
+export type CompletenessSearchParam = DefaultSearchParam<number> & {
+  name: 'completeness';
+  operation:
+    | Extract<SearchQueryOperator, '<=' | '<' | '>' | '>=' | '=' | '!='>
+    | 'GREATER THAN ON ALL LOCALES'
+    | 'GREATER OR EQUALS THAN ON ALL LOCALES';
+};
+
+export type GroupSearchParam = DefaultSearchParam<number> & {
+  name: 'group';
+  operation: Extract<
+    SearchQueryOperator,
+    'IN' | 'NOT IN' | 'EMPTY' | 'NOT EMPTY'
+  >;
+};
+
+export type CreatedSearchParam = DefaultSearchParam<number> & {
+  name: 'group';
+  operation: Extract<
+    SearchQueryOperator,
+    | '<='
+    | '<'
+    | '>'
+    | '>='
+    | '='
+    | '!='
+    | 'BETWEEN'
+    | 'NOT BETWEEN'
+    | 'SINCE LAST N DAYS'
+  >;
+};
+
+export type ParentSearchParam = DefaultSearchParam<number> & {
+  name: 'parent';
 };
 
 export type ProductSpecificSearchQuery<P extends Product> = {
@@ -332,26 +389,18 @@ export type DefaultSearchQueryList<T extends DefaultSearchParam> = Record<
   DefaultProductSearchQuery<T>
 >;
 
-export type DefaultSearchQueryLists =
-  DefaultProductSearchQuery<QualityScoreSearchParam>;
+export type DefaultSearchQueryLists = Record<
+  QualityScoreSearchParam['name'],
+  DefaultProductSearchQuery<QualityScoreSearchParam>
+>;
 
 export type SearchQueryList<P extends Product = Product> =
   | ProductSearchQueryList<P>
   | DefaultSearchQueryLists;
 
-// Testing :)
-type AkeneoValues = 'name' | 'additional';
-type AkeneoData = { name: string };
-
-type TestProduct = Product<
-  { values: Record<AkeneoValues, AkeneoData> } & Omit<Product, 'values'>
->;
-
-type Q = Array<keyof TestProduct['values']>;
-
-const t: SearchQueryList<TestProduct>[] = [
-  {
-    name: { operation: 'IN', value: ['values'] },
-    additional: { operation: 'IN', value: [] },
-  },
-];
+export type ProductQuery<P extends Product = Product> =
+  | ProductQueryParameters
+  | {
+      search: SearchQueryList<P>;
+      attributes: Array<keyof P['values']>;
+    };
