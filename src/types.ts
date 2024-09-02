@@ -301,11 +301,13 @@ export type QualityScoreSearchParam = DefaultSearchParam<QualityScoreLevels> & {
   name: 'quality_scores';
 };
 
-export type ProductSpecificSearchQuery<P extends string[]> = {
+export type ProductSpecificSearchQuery<P extends Product> = {
   operation: SearchQueryOperator;
   scope?: string;
   locale?: string;
-  value: Array;
+  value: Array<
+    P['values'][keyof P['values']][keyof P['values'][keyof P['values']]]
+  >;
 };
 
 export type UndefinedPropertyQuery = {
@@ -322,7 +324,7 @@ export type DefaultProductSearchQuery<T extends DefaultSearchParam> = {
 
 export type ProductSearchQueryList<P extends Product = Product> = Record<
   keyof P['values'],
-  ProductSpecificSearchQuery<keyof P['values']>
+  ProductSpecificSearchQuery<P>
 >;
 
 export type DefaultSearchQueryList<T extends DefaultSearchParam> = Record<
@@ -338,8 +340,8 @@ export type SearchQueryList<P extends Product = Product> =
   | DefaultSearchQueryLists;
 
 // Testing :)
-type AkeneoValues = 'name';
-type AkeneoData = 'data';
+type AkeneoValues = 'name' | 'additional';
+type AkeneoData = { name: string };
 
 type TestProduct = Product<
   { values: Record<AkeneoValues, AkeneoData> } & Omit<Product, 'values'>
@@ -348,5 +350,8 @@ type TestProduct = Product<
 type Q = Array<keyof TestProduct['values']>;
 
 const t: SearchQueryList<TestProduct>[] = [
-  { name: { operation: 'IN', value: [{}] } },
+  {
+    name: { operation: 'IN', value: ['values'] },
+    additional: { operation: 'IN', value: [] },
+  },
 ];
