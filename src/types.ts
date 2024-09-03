@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 
+
 export type ClientParams = {
   /**
    * API host
@@ -135,6 +136,7 @@ export type ProductType = {
   quantified_associations: Record<string, Association>;
   metadata: Record<string, any>;
 };
+
 
 export type Product<T extends ProductType = ProductType> = {
   identifier: string;
@@ -362,9 +364,6 @@ export type ProductSpecificSearchQuery<P extends Product> = {
   operation: SearchQueryOperator;
   scope?: string;
   locale?: string;
-  value: Array<
-    P['values'][keyof P['values']][keyof P['values'][keyof P['values']]]
-  >;
 };
 
 export type UndefinedPropertyQuery = {
@@ -379,10 +378,9 @@ export type DefaultProductSearchQuery<T extends DefaultSearchParam> = {
   value: Array<T['values']>;
 };
 
-export type ProductSearchQueryList<P extends Product = Product> = Record<
-  keyof P['values'],
-  ProductSpecificSearchQuery<P>
->;
+export type ProductSearchQueryList<P extends Product = Product> = {
+  [K in keyof P['values']]: {values: P['values'][K] } & ProductSpecificSearchQuery<P>
+}
 
 export type DefaultSearchQueryList<T extends DefaultSearchParam> = Record<
   keyof T['values'],
@@ -404,3 +402,4 @@ export type ProductQuery<P extends Product = Product> =
       search: SearchQueryList<P>;
       attributes: Array<keyof P['values']>;
     };
+
