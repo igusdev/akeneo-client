@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { ListResponse, Product, ProductQueryParameters } from '../types';
+import { ListResponse, Product, ProductQuery, ProductQueryParameters } from '../types';
 import raw from './raw';
 
 /**
@@ -7,7 +7,7 @@ import raw from './raw';
  */
 export const get = <P extends Product = Product>(
   http: AxiosInstance,
-  { query }: { query?: ProductQueryParameters },
+  { query }: { query?: ProductQuery<P> },
 ): Promise<ListResponse<P>> =>
   raw.get(http, `/api/rest/v1/products`, {
     params: query,

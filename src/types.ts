@@ -398,7 +398,7 @@ export type SearchQueryList<P extends Product = Product> =
 
 export type ProductQuery<P extends Product = Product> =
   | ProductQueryParameters
-  | {
+  | ProductQueryParameters & {
       search: SearchQueryList<P>;
       attributes: Array<keyof P['values']>;
     };
