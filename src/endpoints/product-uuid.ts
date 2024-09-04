@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { ListResponse, Product, ProductQueryParameters } from '../types';
+import { ListResponse, ProductQueryParameters, ProductUuid } from '../types';
 import raw from './raw';
 
 /**
@@ -8,7 +8,7 @@ import raw from './raw';
 export const get = (
   http: AxiosInstance,
   { query }: { query?: ProductQueryParameters },
-): Promise<ListResponse<Product>> =>
+): Promise<ListResponse<ProductUuid>> =>
   raw.get(http, `/api/rest/v1/products-uuid`, {
     params: query,
   });
@@ -28,7 +28,7 @@ export const getOne = (
       with_quality_scores?: boolean;
     };
   },
-): Promise<Product> =>
+): Promise<ProductUuid> =>
   raw.getOne(http, `/api/rest/v1/products-uuid/${uuid}`, {
     params: query,
   });
@@ -36,7 +36,7 @@ export const getOne = (
 export const getAll = (
   http: AxiosInstance,
   { query = {} }: { query?: ProductQueryParameters },
-): Promise<ListResponse<Product>> => {
+): Promise<ListResponse<ProductUuid>> => {
   // support legacy pagination_type "page"
   if (query?.pagination_type === 'page') {
     return raw.getAllByPage(http, `/api/rest/v1/products-uuid`, {
