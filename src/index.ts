@@ -20,10 +20,13 @@ type EndpointDefinition<P extends Record<string, any>, R> = (
   params: P,
 ) => R;
 
-const wrap = <P extends Record<string, any>, R>(
-  http: AxiosInstance,
-  fn: EndpointDefinition<P, R>,
-) => (params: P) => fn(http, params);
+const wrap =
+  <P extends Record<string, any>, R>(
+    http: AxiosInstance,
+    fn: EndpointDefinition<P, R>,
+  ) =>
+  (params: P) =>
+    fn(http, params);
 
 /**
  * Create a client instance
@@ -60,6 +63,11 @@ export const createClient = (params: ClientParams) => {
       getOne: wrap(http, endpoints.product.getOne),
       get: wrap(http, endpoints.product.get),
       getAll: wrap(http, endpoints.product.getAll),
+    },
+    product_uuid: {
+      getOne: wrap(http, endpoints.productUuid.getOne),
+      get: wrap(http, endpoints.productUuid.get),
+      getAll: wrap(http, endpoints.productUuid.getAll),
     },
     assetFamily: {
       getOne: wrap(http, endpoints.assetFamily.getOne),
