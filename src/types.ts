@@ -119,6 +119,7 @@ type Association = {
   product_models: string[];
   groups: string[];
 };
+
 export type ProductModel = {
   code: string;
   family: string;
@@ -148,6 +149,10 @@ export type Product = {
   quantified_associations: Record<string, Association>;
   metadata: Record<string, any>;
 };
+
+export type ProductUuid = {
+  uuid: string;
+} & Product;
 
 export type Family = {
   code: string;
