@@ -74,9 +74,16 @@ describe('Category', () => {
       Promise.resolve({ data: mockCategoryResponse.getAll }),
     );
 
-    const { items: categories } = await getAll(axios, {});
+    const { items: categories } = await getAll(axios, {
+      query: {
+        search: JSON.stringify({
+          parent: [{ operator: '=', value: 'some category' }],
+        }),
+      },
+    });
     expect(axios.get).toBeCalledWith('/api/rest/v1/categories', {
       params: {
+        search: '{"parent":[{"operator":"=","value":"some category"}]}',
         limit: 100,
         page: 1,
         with_count: true,
