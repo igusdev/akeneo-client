@@ -1,8 +1,10 @@
 {
-  "extends": "./tsconfig-base.json",
-  "compilerOptions": {
-    "module": "esnext",
-    "outDir": "dist/mjs",
-    "target": "esnext"
-  }
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/client"
+    }
+  ]
 }

@@ -1,0 +1,32 @@
+{
+  "name": "@igusdev/akeneo-client",
+  "version": "1.0.12",
+  "description": "Unofficial Node.js REST API client for the Akeneo PIM",
+  "author": "igus GmbH",
+  "contributors": [
+    "Waldemar Heinze <mail@wheinze.dev>",
+    "Michał Mrozek <github@michalmrozek.dev>"
+  ],
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "default": "./dist/index.cjs.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "axios": "^1.7.9"
+  },
+  "nx": {
+    "sourceRoot": "packages/client/src",
+    "name": "client"
+  }
+}

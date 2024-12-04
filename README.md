@@ -1,12 +1,12 @@
-[![Node Akeneo API](https://github.com/craftzing/node-akeneo-api/raw/master/art/banner.jpg)](https://craftzing.com)
+[![Node Akeneo API](https://github.com/igusdev/akeneo-client/raw/main/art/banner.jpg)](https://igusdev.com)
 
-[![Quality assurance](https://github.com/craftzing/node-akeneo-api/actions/workflows/quality-assurance.yml/badge.svg?branch=master)](https://github.com/craftzing/node-akeneo-api/actions/workflows/quality-assurance.yml)
-[![Code style](https://github.com/craftzing/node-akeneo-api/actions/workflows/code-style.yml/badge.svg?branch=master)](https://github.com/craftzing/node-akeneo-api/actions/workflows/code-style.yml)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/90013a42a4dce3766813/test_coverage)](https://codeclimate.com/github/craftzing/akeneo-api/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/90013a42a4dce3766813/maintainability)](https://codeclimate.com/github/craftzing/akeneo-api/maintainability)
-![Software License](https://img.shields.io/github/license/craftzing/node-akeneo-api)
+[![Quality assurance](https://github.com/igusdev/akeneo-client/actions/workflows/quality-assurance.yml/badge.svg?branch=main)](https://github.com/igusdev/akeneo-client/actions/workflows/quality-assurance.yml)
+[![Code style](https://github.com/igusdev/akeneo-client/actions/workflows/code-style.yml/badge.svg?branch=main)](https://github.com/igusdev/akeneo-client/actions/workflows/code-style.yml)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/90013a42a4dce3766813/test_coverage)](https://codeclimate.com/github/igusdev/akeneo-api/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/90013a42a4dce3766813/maintainability)](https://codeclimate.com/github/igusdev/akeneo-api/maintainability)
+![Software License](https://img.shields.io/github/license/igusdev/akeneo-client)
 [![js-airbnb-style](https://img.shields.io/badge/code%20style-airbnb-brightgreen.svg)](https://github.com/airbnb/javascript/)
-![npm (scoped)](https://img.shields.io/npm/v/@craftzing/akeneo-api)
+![npm (scoped)](https://img.shields.io/npm/v/@igusdev/akeneo-api)
 
 # Akeneo API
 
@@ -31,13 +31,13 @@ Note: not all endpoints are implements. Mostly only the GET are available. YMMV
 Using npm:
 
 ```sh
-npm install @craftzing/akeneo-api
+npm install @igusdev/akeneo-client
 ```
 
 Using yarn:
 
 ```sh
-yarn add @craftzing/akeneo-api
+yarn add @igusdev/akeneo-client
 ```
 
 ## ⚙️ Configuration
@@ -54,7 +54,7 @@ Follow the instructions for your Akeneo version to get the required parameters:
 With es6 imports
 
 ```js
-import client from '@craftzing/akeneo-api';
+import client from '@igusdev/akeneo-client';
 
 const akeneo = client({
   url,
@@ -68,24 +68,20 @@ const akeneo = client({
 console.log(await akeneo.productModel.getAll({}));
 ```
 
-## 📚 Docs
-
-- [docs](https://craftzing.github.io/node-akeneo-api/)
-
 ## 📝 Changelog
 
-You can check the changelog on the [releases](https://github.com/craftzing/node-akeneo-api/releases) page.
+You can check the changelog on the [releases](https://github.com/igusdev/akeneo-client/releases) page.
 
 ## 🤝 Support
 
-If you have a problem with this library, please file an [issue](https://github.com/craftzing/akeneo-api/issues/new) here on GitHub.
+If you have a problem with this library, please file an [issue](https://github.com/igusdev/akeneo-api/issues/new) here on GitHub.
 
 If you have other problems with Akeneo not related to this library, you can contact their [Customer Support](https://www.akeneo.com/support/).
 
-## 💙 Thanks to...
+## 💙 Thanks to
 
-- [The entire Craftzing team](https://craftzing.com)
-- [All current and future contributors](https://github.com/craftzing/node-akeneo-api/graphs/contributors)
+- [The entire Craftzing team that this repo is forked from](https://craftzing.com)
+- [All current and future contributors](https://github.com/igusdev/akeneo-client/graphs/contributors)
 
 ## 🔑 License
 
