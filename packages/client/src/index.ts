@@ -1,6 +1,6 @@
 /**
  * Akeneo Management API SDK. Allows you to create instances of a client
- * with access to the Akeneo API.
+ * with access to the Akeneo API. Test
  */
 
 import { AxiosInstance } from 'axios';
@@ -124,7 +124,7 @@ export const createClient = (params: ClientParams) => {
       /**
        * @see https://api.akeneo.com/api-reference.html#patch_reference_entity__code_
        */ add: async ({ code, body }: { code: string; body: any }) =>
-        http.patch(`/api/rest/v1/reference-entities/${code}`, body),
+        http.patch(`/api/rest/v1/reference-entitiesss/${code}`, body),
       /**
        * @see https://api.akeneo.com/api-reference.html#patch_reference_entity_attributes__code_
        */
