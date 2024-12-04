@@ -1,3 +1,22 @@
+## 1.1.0 (2024-12-04)
+
+### 🚀 Features
+
+- support legacy pagination_type "page" to circumvent seemingly infinite loop ([58d5cd9](https://github.com/igusdev/akeneo-client/commit/58d5cd9))
+- expose `uuid` field for products ([#9](https://github.com/igusdev/akeneo-client/pull/9))
+- add product UUID endpoint ([#17](https://github.com/igusdev/akeneo-client/pull/17))
+
+### 🩹 Fixes
+
+- typo in types `Product` and `ProductModel` ([#10](https://github.com/igusdev/akeneo-client/pull/10))
+- use correct params for category.getAll() ([#18](https://github.com/igusdev/akeneo-client/pull/18))
+
+### ❤️ Thank You
+
+- Dennis Weisenseel @Osmil
+- Georg v. Jeetze @gvonjeetze
+- Waldemar Heinze @wheinze
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
