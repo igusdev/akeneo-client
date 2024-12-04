@@ -26,4 +26,4 @@ jobs:
       - run: yarn install --immutable
       - uses: nrwl/nx-set-shas@v4
 
-      - run: yarn nx affected -t lint test build
+      - run: yarn nx affected -t lint test build --verbose
