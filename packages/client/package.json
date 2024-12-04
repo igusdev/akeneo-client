@@ -3,6 +3,9 @@
   "version": "1.1.0",
   "description": "Unofficial Node.js REST API client for the Akeneo PIM",
   "author": "igus GmbH",
+  "publishConfig": {
+    "access": "public"
+  },
   "contributors": [
     "Waldemar Heinze <mail@wheinze.dev>",
     "Michał Mrozek <github@michalmrozek.dev>"

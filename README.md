@@ -1,13 +1,3 @@
-[![Node Akeneo API](https://github.com/igusdev/akeneo-client/raw/main/art/banner.jpg)](https://igusdev.com)
-
-[![Quality assurance](https://github.com/igusdev/akeneo-client/actions/workflows/quality-assurance.yml/badge.svg?branch=main)](https://github.com/igusdev/akeneo-client/actions/workflows/quality-assurance.yml)
-[![Code style](https://github.com/igusdev/akeneo-client/actions/workflows/code-style.yml/badge.svg?branch=main)](https://github.com/igusdev/akeneo-client/actions/workflows/code-style.yml)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/90013a42a4dce3766813/test_coverage)](https://codeclimate.com/github/igusdev/akeneo-api/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/90013a42a4dce3766813/maintainability)](https://codeclimate.com/github/igusdev/akeneo-api/maintainability)
-![Software License](https://img.shields.io/github/license/igusdev/akeneo-client)
-[![js-airbnb-style](https://img.shields.io/badge/code%20style-airbnb-brightgreen.svg)](https://github.com/airbnb/javascript/)
-![npm (scoped)](https://img.shields.io/npm/v/@igusdev/akeneo-api)
-
 # Akeneo API
 
 This is an unofficial Node client for the Akeneo PIM REST API.
