@@ -1,18 +1,21 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from 'axios';
 import { ClientParams } from './types';
+
+declare module 'axios' {
+  export interface InternalAxiosRequestConfig {
+    retry: boolean;
+  }
+}
 
 const TOKEN_PATH = '/api/oauth/v1/token';
 
-const defaultConfig = {
-  insecure: false,
-  retryOnError: true,
-  headers: {} as Record<string, unknown>,
-  httpAgent: false,
-  httpsAgent: false,
+const defaultConfig: Partial<AxiosRequestConfig> = {
   timeout: 30000,
-  proxy: false as const,
-  basePath: '',
-  adapter: undefined,
   maxContentLength: 1073741824, // 1GB
 };
 
@@ -32,7 +35,7 @@ const createHttpClient = (options: ClientParams): AxiosInstance => {
     ...defaultConfig,
     ...(options.axiosOptions || {}),
     baseURL,
-  }) as AxiosInstance;
+  });
   const base64Encoded = Buffer.from(`${clientId}:${secret}`).toString('base64');
 
   const refreshAccessToken = async () => {
@@ -57,18 +60,16 @@ const createHttpClient = (options: ClientParams): AxiosInstance => {
     return config;
   });
 
+  // requests that failed due to invalid access token will be retried once with a refreshed access token.
   instance.interceptors.response.use(
     (response: AxiosResponse) => response,
-    async (error) => {
+    async (error: AxiosError) => {
       const originalRequest = error.config;
-      if (
-        error.response &&
-        (error.response.status === 403 || error.response.status === 401) &&
-        !originalRequest._retry
-      ) {
-        originalRequest._retry = true;
-        accessToken = '';
+      if (!originalRequest || originalRequest.retry)
+        return Promise.reject(error);
+      if (error.response?.status === 403 || error.response?.status === 401) {
         originalRequest.headers.Authorization = `Bearer ${await refreshAccessToken()}`;
+        originalRequest.retry = true;
         return instance(originalRequest);
       }
       return Promise.reject(error);
