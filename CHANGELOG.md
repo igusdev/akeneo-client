@@ -1,3 +1,13 @@
+## 1.1.1 (2025-01-20)
+
+### 🩹 Fixes
+
+- properly reference types ([4237cfd](https://github.com/igusdev/akeneo-client/commit/4237cfd))
+
+### ❤️ Thank You
+
+- Michał Mrozek
+
 ## 1.1.0 (2024-12-04)
 
 ### 🚀 Features
