@@ -15,16 +15,16 @@
   ],
   "license": "MIT",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "module": "./dist/index.esm.js",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/index.cjs.d.ts",
       "import": "./dist/index.esm.js",
       "default": "./dist/index.cjs.js"
     }
   },
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.cjs.d.ts",
   "dependencies": {
     "axios": "^1.7.9"
   },
