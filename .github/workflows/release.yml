@@ -17,9 +17,14 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - if: ${{ github.ref_name != 'main' }}
+        run: |
+          echo "Branch '${{ github.ref_name }}' is not allowed to trigger this workflow."
+          exit 1
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.BOT_GITHUB_PAT }}
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
@@ -30,11 +35,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_PAT }}
       - run: yarn install --immutable
       - name: Nx release
         run: yarn nx release --skip-publish ${{ github.event.inputs.options }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_PAT }}
       - run: yarn nx run-many -t build
       - name: Nx release
         run: |
