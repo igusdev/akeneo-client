@@ -25,8 +25,11 @@
     }
   },
   "types": "./dist/index.cjs.d.ts",
-  "dependencies": {
-    "axios": "^1.7.9"
+  "devDependencies": {
+    "axios": "^1.8.4"
+  },
+  "peerDependencies": {
+    "axios": "^1.8.4"
   },
   "nx": {
     "sourceRoot": "packages/client/src",
