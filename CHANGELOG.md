@@ -1,3 +1,17 @@
+# 2.0.0 (2025-04-24)
+
+### 🚀 Features
+
+- ⚠️  make axios peer dependency ([#21](https://github.com/igusdev/akeneo-client/pull/21))
+
+### ⚠️  Breaking Changes
+
+- ⚠️  make axios peer dependency ([#21](https://github.com/igusdev/akeneo-client/pull/21))
+
+### ❤️ Thank You
+
+- Michał Mrozek
+
 ## 1.1.1 (2025-01-20)
 
 ### 🩹 Fixes
