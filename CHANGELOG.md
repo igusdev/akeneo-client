@@ -1,3 +1,13 @@
+## 2.0.1 (2025-05-20)
+
+### 🩹 Fixes
+
+- mark current_page as required ([#22](https://github.com/igusdev/akeneo-client/pull/22))
+
+### ❤️ Thank You
+
+- Hendrik Loewe @CakeWithDivinity
+
 # 2.0.0 (2025-04-24)
 
 ### 🚀 Features
