@@ -110,7 +110,7 @@ export type AssetQueryParameters = {
 
 export type ListResponse<T> = {
   items_count?: number;
-  current_page?: number;
+  current_page: number;
   items: T[];
 };
 
