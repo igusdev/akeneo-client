@@ -13,11 +13,11 @@ afterEach(() => {
 describe('Attribute', () => {
   test('get attributes', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.get })
+      Promise.resolve({ data: mockResponse.get }),
     );
 
     const { items } = await get(axios, {});
-    expect(axios.get).toBeCalledWith('/api/rest/v1/attributes', {
+    expect(axios.get).toHaveBeenCalledWith('/api/rest/v1/attributes', {
       params: {},
     });
     expect(items).toHaveLength(1);
@@ -25,17 +25,17 @@ describe('Attribute', () => {
 
   test('getOne attribute', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.getOne })
+      Promise.resolve({ data: mockResponse.getOne }),
     );
 
     const attribute = await getOne(axios, { code: 'test' });
-    expect(axios.get).toBeCalledWith('/api/rest/v1/attributes/test', {});
+    expect(axios.get).toHaveBeenCalledWith('/api/rest/v1/attributes/test', {});
     expect(attribute).toHaveProperty('group');
   });
 
   test('Get with valid parameters', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.get })
+      Promise.resolve({ data: mockResponse.get }),
     );
 
     await get(axios, {
@@ -44,7 +44,7 @@ describe('Attribute', () => {
       },
     });
 
-    expect(axios.get).toBeCalledWith('/api/rest/v1/attributes', {
+    expect(axios.get).toHaveBeenCalledWith('/api/rest/v1/attributes', {
       params: {
         search: '{"code":[{"operator":"IN","value":["code1","code2"]}]}',
       },
@@ -57,19 +57,19 @@ describe('Attribute', () => {
     });
 
     await expect(() =>
-      get(axios, { query: { search: 'test' } })
+      get(axios, { query: { search: 'test' } }),
     ).rejects.toThrow(
-      new Error(JSON.stringify(mockError.response, null, '  '))
+      new Error(JSON.stringify(mockError.response, null, '  ')),
     );
   });
 
   test('getAll', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.getAll })
+      Promise.resolve({ data: mockResponse.getAll }),
     );
 
     const { items: attributes } = await getAll(axios, {});
-    expect(axios.get).toBeCalledWith('/api/rest/v1/attributes', {
+    expect(axios.get).toHaveBeenCalledWith('/api/rest/v1/attributes', {
       params: {
         limit: 100,
         page: 1,
@@ -81,13 +81,13 @@ describe('Attribute', () => {
 
   test('getOptions', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.getAll })
+      Promise.resolve({ data: mockResponse.getAll }),
     );
 
     const { items: attributes } = await getOptions(axios, {
       attributeCode: 'back_material',
     });
-    expect(axios.get).toBeCalledWith(
+    expect(axios.get).toHaveBeenCalledWith(
       '/api/rest/v1/attributes/back_material/options',
       {
         params: {
@@ -95,14 +95,14 @@ describe('Attribute', () => {
           page: 1,
           with_count: true,
         },
-      }
+      },
     );
     expect(attributes).toHaveLength(1);
   });
 
   test('getOptions with params', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.getAll })
+      Promise.resolve({ data: mockResponse.getAll }),
     );
 
     const { items: attributes } = await getOptions(axios, {
@@ -113,7 +113,7 @@ describe('Attribute', () => {
         with_count: true,
       },
     });
-    expect(axios.get).toBeCalledWith(
+    expect(axios.get).toHaveBeenCalledWith(
       '/api/rest/v1/attributes/back_material/options',
       {
         params: {
@@ -121,7 +121,7 @@ describe('Attribute', () => {
           page: 1,
           with_count: true,
         },
-      }
+      },
     );
     expect(attributes).toHaveLength(1);
   });

@@ -13,25 +13,28 @@ afterEach(() => {
 describe('Reference Entity', () => {
   test('get', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.get })
+      Promise.resolve({ data: mockResponse.get }),
     );
 
     const { items } = await get(axios, {});
-    expect(axios.get).toBeCalledWith('/api/rest/v1/reference-entities', {});
+    expect(axios.get).toHaveBeenCalledWith(
+      '/api/rest/v1/reference-entities',
+      {},
+    );
     expect(items).toHaveLength(1);
   });
 
   test('getRecords', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.get })
+      Promise.resolve({ data: mockResponse.get }),
     );
 
     const { items } = await getRecords(axios, {
       referenceEntityCode: 'testcode',
     });
-    expect(axios.get).toBeCalledWith(
+    expect(axios.get).toHaveBeenCalledWith(
       '/api/rest/v1/reference-entities/testcode/records',
-      {}
+      {},
     );
     expect(items).toHaveLength(1);
   });
