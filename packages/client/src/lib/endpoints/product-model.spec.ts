@@ -17,7 +17,7 @@ describe('Product Model', () => {
     axiosGetSpy.mockImplementation(mockFunction(mockResponse.get));
 
     const { items } = await get(axios, {});
-    expect(axios.get).toBeCalledWith('/api/rest/v1/product-models', {});
+    expect(axios.get).toHaveBeenCalledWith('/api/rest/v1/product-models', {});
     expect(items).toHaveLength(1);
   });
 
@@ -25,7 +25,10 @@ describe('Product Model', () => {
     axiosGetSpy.mockImplementation(mockFunction(mockResponse.getOne));
 
     const category = await getOne(axios, { code: 'test' });
-    expect(axios.get).toBeCalledWith('/api/rest/v1/product-models/test', {});
+    expect(axios.get).toHaveBeenCalledWith(
+      '/api/rest/v1/product-models/test',
+      {},
+    );
     expect(category).toHaveProperty('family');
   });
 
@@ -38,7 +41,7 @@ describe('Product Model', () => {
       },
     });
 
-    expect(axios.get).toBeCalledWith('/api/rest/v1/product-models', {
+    expect(axios.get).toHaveBeenCalledWith('/api/rest/v1/product-models', {
       params: {
         search: '{"code":[{"operator":"IN","value":["code1","code2"]}]}',
       },
@@ -51,17 +54,17 @@ describe('Product Model', () => {
     });
 
     await expect(() =>
-      get(axios, { query: { search: 'test' } })
+      get(axios, { query: { search: 'test' } }),
     ).rejects.toThrow(new Error(JSON.stringify(mockError.response, null, 2)));
   });
 
   test('getAll', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.getAll })
+      Promise.resolve({ data: mockResponse.getAll }),
     );
 
     const { items: productModels } = await getAll(axios, {});
-    expect(axios.get).toBeCalledWith('/api/rest/v1/product-models', {
+    expect(axios.get).toHaveBeenCalledWith('/api/rest/v1/product-models', {
       params: {
         limit: 100,
         pagination_type: 'search_after',
@@ -72,13 +75,13 @@ describe('Product Model', () => {
 
   test('getAll with pagination_type="page"', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.getAll })
+      Promise.resolve({ data: mockResponse.getAll }),
     );
 
     const { items: productModels } = await getAll(axios, {
       query: { pagination_type: 'page' },
     });
-    expect(axios.get).toBeCalledWith('/api/rest/v1/product-models', {
+    expect(axios.get).toHaveBeenCalledWith('/api/rest/v1/product-models', {
       params: {
         limit: 100,
         page: 1,

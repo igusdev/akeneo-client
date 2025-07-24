@@ -12,11 +12,11 @@ afterEach(() => {
 describe('Family', () => {
   test('get families', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockFamilyResponse.get })
+      Promise.resolve({ data: mockFamilyResponse.get }),
     );
 
     const { items } = await get(axios, {});
-    expect(axios.get).toBeCalledWith('/api/rest/v1/families', {
+    expect(axios.get).toHaveBeenCalledWith('/api/rest/v1/families', {
       params: {},
     });
     expect(items).toHaveLength(1);
@@ -24,15 +24,15 @@ describe('Family', () => {
 
   test('get variants', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockFamilyResponse.get })
+      Promise.resolve({ data: mockFamilyResponse.get }),
     );
 
     const { items } = await getVariants(axios, { familyCode: 'cushions' });
-    expect(axios.get).toBeCalledWith(
+    expect(axios.get).toHaveBeenCalledWith(
       '/api/rest/v1/families/cushions/variants',
       {
         params: {},
-      }
+      },
     );
     expect(items).toHaveLength(1);
   });

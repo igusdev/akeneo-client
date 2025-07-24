@@ -20,11 +20,11 @@ afterEach(() => {
 describe('Asset Family', () => {
   test('get', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.get })
+      Promise.resolve({ data: mockResponse.get }),
     );
 
     const { items } = await get(axios, {});
-    expect(axios.get).toBeCalledWith('/api/rest/v1/asset-families', {
+    expect(axios.get).toHaveBeenCalledWith('/api/rest/v1/asset-families', {
       params: {},
     });
     expect(items).toHaveLength(1);
@@ -32,21 +32,24 @@ describe('Asset Family', () => {
 
   test('getOne', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.getOne })
+      Promise.resolve({ data: mockResponse.getOne }),
     );
 
     const assetFamily = await getOne(axios, { code: 'test' });
-    expect(axios.get).toBeCalledWith('/api/rest/v1/asset-families/test', {});
+    expect(axios.get).toHaveBeenCalledWith(
+      '/api/rest/v1/asset-families/test',
+      {},
+    );
     expect(assetFamily).toHaveProperty('code');
   });
 
   test('getAll', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: mockResponse.getAll })
+      Promise.resolve({ data: mockResponse.getAll }),
     );
 
     const { items: assetFamilies } = await getAll(axios, {});
-    expect(axios.get).toBeCalledWith('/api/rest/v1/asset-families', {
+    expect(axios.get).toHaveBeenCalledWith('/api/rest/v1/asset-families', {
       params: {
         limit: 100,
         pagination_type: 'search_after',
@@ -57,29 +60,29 @@ describe('Asset Family', () => {
 
   test('getAssets', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: { _embedded: {} } })
+      Promise.resolve({ data: { _embedded: {} } }),
     );
 
     await getAssets(axios, { assetFamilyCode: 'test' });
-    expect(axios.get).toBeCalledWith(
+    expect(axios.get).toHaveBeenCalledWith(
       '/api/rest/v1/asset-families/test/assets',
-      {}
+      {},
     );
   });
 
   test('getAssetsAll', async () => {
     axiosGetSpy.mockImplementationOnce(async () =>
-      Promise.resolve({ data: mockResponse.getAssetsAll[0] })
+      Promise.resolve({ data: mockResponse.getAssetsAll[0] }),
     );
     axiosGetSpy.mockImplementationOnce(async () =>
-      Promise.resolve({ data: mockResponse.getAssetsAll[1] })
+      Promise.resolve({ data: mockResponse.getAssetsAll[1] }),
     );
 
     await getAssetsAll(axios, { assetFamilyCode: 'test' });
     expect(axios.get).toHaveBeenNthCalledWith(
       1,
       '/api/rest/v1/asset-families/test/assets',
-      { params: { limit: 100, pagination_type: 'search_after' } }
+      { params: { limit: 100, pagination_type: 'search_after' } },
     );
     expect(axios.get).toHaveBeenNthCalledWith(
       2,
@@ -90,19 +93,19 @@ describe('Asset Family', () => {
           pagination_type: 'search_after',
           search_after: 'alr195t',
         },
-      }
+      },
     );
   });
 
   test('getAsset', async () => {
     axiosGetSpy.mockImplementation(async () =>
-      Promise.resolve({ data: { _embedded: {} } })
+      Promise.resolve({ data: { _embedded: {} } }),
     );
 
     await getAsset(axios, { assetFamilyCode: 'test', code: 'assetcode' });
-    expect(axios.get).toBeCalledWith(
+    expect(axios.get).toHaveBeenCalledWith(
       '/api/rest/v1/asset-families/test/assets/assetcode',
-      {}
+      {},
     );
   });
 });

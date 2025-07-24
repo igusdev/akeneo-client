@@ -26,10 +26,10 @@
   },
   "types": "./dist/index.cjs.d.ts",
   "devDependencies": {
-    "axios": "^1.8.4"
+    "axios": "^1.11.0"
   },
   "peerDependencies": {
-    "axios": "^1.8.4"
+    "axios": ">=1.0.0 < 2.0.0"
   },
   "nx": {
     "sourceRoot": "packages/client/src",
