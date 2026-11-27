@@ -19,6 +19,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
     steps:
       - if: ${{ github.ref_name != 'main' }}
         run: |
@@ -42,17 +43,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_PAT }}
       - run: yarn install --immutable
-      - name: Nx release
+      - name: Nx release version
         run: yarn nx release --skip-publish ${{ github.event.inputs.options }}
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_PAT }}
       - run: yarn nx run-many -t build
-      - name: Nx release
-        run: |
-          npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          yarn nx release publish ${{ github.event.inputs.options }}
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to npm
+        run: yarn nx release publish ${{ github.event.inputs.options }}
       - name: Publish to GitHub Packages
         run: |
           npm config set "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}"
