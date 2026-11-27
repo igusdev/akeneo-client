@@ -1,3 +1,13 @@
+## 2.0.3 (2026-11-27)
+
+### 🩹 Fixes
+
+- package types ([#28](https://github.com/igusdev/akeneo-client/pull/28))
+
+### ❤️ Thank You
+
+- Michał Mrozek @Michsior14
+
 ## 2.0.2 (2026-11-27)
 
 This was a version bump only, there were no code changes.
