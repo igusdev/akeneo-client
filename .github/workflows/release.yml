@@ -5,7 +5,7 @@ on:
     inputs:
       options:
         description:
-          Addional arguments send to nx release, if empty uses conventional-commits.
+          Additional arguments send to nx release, if empty uses conventional-commits.
           https://nx.dev/nx-api/nx/documents/release
         type: string
         required: false
@@ -16,17 +16,20 @@ env:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - if: ${{ github.ref_name != 'main' }}
         run: |
           echo "Branch '${{ github.ref_name }}' is not allowed to trigger this workflow."
           exit 1
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ secrets.BOT_GITHUB_PAT }}
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
@@ -50,3 +53,9 @@ jobs:
           yarn nx release publish ${{ github.event.inputs.options }}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to GitHub Packages
+        run: |
+          npm config set "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}"
+          yarn nx release publish --registry https://npm.pkg.github.com ${{ github.event.inputs.options }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

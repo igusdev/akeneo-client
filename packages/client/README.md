@@ -30,6 +30,8 @@ Using yarn:
 yarn add @igusdev/akeneo-client
 ```
 
+The package is published to [npmjs](https://www.npmjs.com/package/@igusdev/akeneo-client) and to GitHub Packages (`https://npm.pkg.github.com`).
+
 ## ⚙️ Configuration
 
 ### Authentication
