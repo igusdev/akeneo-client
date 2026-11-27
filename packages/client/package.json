@@ -3,6 +3,11 @@
   "version": "2.0.1",
   "description": "Unofficial Node.js REST API client for the Akeneo PIM",
   "author": "igus GmbH",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/igusdev/akeneo-client.git",
+    "directory": "packages/client"
+  },
   "publishConfig": {
     "access": "public"
   },
